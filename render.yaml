@@ -1,0 +1,37 @@
+services:
+  - type: web
+    name: price-drop-api
+    runtime: node
+    buildCommand: npm run build
+    startCommand: npm run start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: REDIS_ENABLED
+        value: "true"
+      - key: REDIS_URL
+        fromService:
+          type: redis
+          name: price-drop-redis
+          property: connectionString
+      - key: MONGODB_URI
+        sync: false
+      - key: CLIENT_URL
+        sync: false
+      - key: JWT_SECRET
+        generateValue: true
+      - key: EMAIL_FROM
+        sync: false
+      - key: SMTP_HOST
+        value: smtp.gmail.com
+      - key: SMTP_PORT
+        value: "587"
+      - key: EMAIL_USER
+        sync: false
+      - key: EMAIL_PASS
+        sync: false
+
+redis:
+  - name: price-drop-redis
+    plan: free
+    ipAllowList: []
