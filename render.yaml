@@ -11,7 +11,7 @@ services:
         value: "true"
       - key: REDIS_URL
         fromService:
-          type: redis
+          type: keyvalue
           name: price-drop-redis
           property: connectionString
       - key: MONGODB_URI
@@ -31,7 +31,7 @@ services:
       - key: EMAIL_PASS
         sync: false
 
-redis:
-  - name: price-drop-redis
+  - type: keyvalue
+    name: price-drop-redis
     plan: free
     ipAllowList: []
